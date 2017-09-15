@@ -26,10 +26,10 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
 		MemberDao memberDao = new JdbcMemberDao();
 		Member member = memberDao.get(id);

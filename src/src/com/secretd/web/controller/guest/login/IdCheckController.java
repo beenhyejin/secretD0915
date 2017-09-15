@@ -20,12 +20,14 @@ public class IdCheckController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		
 		String check_id = request.getParameter("id");
 		MemberDao dao = new JdbcMemberDao();
+		
 		boolean checkIdresult = dao.duplicateIdCheck(check_id);
 		if (!checkIdresult)
-			out.write("<script>alert('»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.');history.go(-1);self.close();</script>");
+			out.write("<script>alert('ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.'); history.go(-1); self.close();</script>");
 		else
-			out.write("<script>alert('¾ÆÀÌµğ°¡ Áßº¹µÇ¾ú½À´Ï´Ù');history.go(-1);self.close();</script>");
+			out.write("<script>alert('ì•„ì´ë””ê°€ ì¤‘ë³µë˜ì—ˆìŠµë‹ˆë‹¤.\n ì‚¬ìš©ì´ ë¶ˆê°€í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.'); history.go(-1); self.close();</script>");
 	}
 }

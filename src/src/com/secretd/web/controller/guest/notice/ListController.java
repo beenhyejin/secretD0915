@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import src.com.secretd.web.dao.NoticeDao;
 import src.com.secretd.web.dao.jdbc.JdbcNoticeDao;
-import src.com.secretd.web.entity.NoticeView;
+import src.com.secretd.web.entity.Notice;
 
 @WebServlet("/guest/notice/list")
 public class ListController extends HttpServlet{
@@ -29,7 +29,7 @@ public class ListController extends HttpServlet{
 		if(_query != null && !_query.equals(""))
 			query=_query;
 
-		List<NoticeView> list= null; 
+		List<Notice> list= null; 
 		int count=0;		
 
 		NoticeDao noticeDao = new JdbcNoticeDao();

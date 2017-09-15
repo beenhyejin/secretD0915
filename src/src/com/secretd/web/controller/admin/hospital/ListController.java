@@ -19,7 +19,7 @@ import src.com.secretd.web.entity.Hospital;
 public class ListController extends HttpServlet{
 @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	int page = 1;
+	/*int page = 1;
 	String _page = request.getParameter("p");
 	if (_page != null && !_page.equals(""))
 		page = Integer.parseInt(_page);
@@ -32,7 +32,35 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	
 	HospitalDao hospitalDao = new JdbcHospitalDao();
 	list = hospitalDao.getList(page, query);
-	count = hospitalDao.getCount();
+	count = hospitalDao.getCount();*/
+	String _query = request.getParameter("name");
+	   String _page = request.getParameter("p");
+	   String _subject =request.getParameter("sub");
+	   String _addr = request.getParameter("addr");
+	   
+	   String query = "";
+	   String subject="";
+	   String addr="";
+	   int page = 1;
+	   
+	   List<Hospital> list = null;
+	   int count = 0;
+	   
+	   if (_page != null && !_page.equals(""))
+	         page = Integer.parseInt(_page);
+	   if (_query != null && !_query.equals(""))
+	      query = _query;
+	   if (_addr != null && !_addr.equals(""))
+	      addr = _addr;   
+	   if (_subject != null && !_subject.equals(""))
+	      subject = _subject;
+
+	   
+	   HospitalDao hospitalDao = new JdbcHospitalDao();
+	   
+	   list = hospitalDao.getList(query,subject,addr,page);
+	   count = hospitalDao.getCount(query,subject,addr);
+	
 	request.setAttribute("list", list);
 	request.setAttribute("count", count);
 	request.getRequestDispatcher("/WEB-INF/views/admin/hospital/list.jsp").forward(request, response);
@@ -46,7 +74,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	PrintWriter out = response.getWriter();
 	HttpSession session = request.getSession();
 	if(session.getAttribute("id") == null)
-		out.write("<script>alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù');location.href='../../member/login?returnURL=../admin/hospital/list;</script>");
+		out.write("<script>alert('ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤');location.href='../../member/login?returnURL=../admin/hospital/list;</script>");
 	else{
 		String[] sCheck = request.getParameterValues("check");
 		HospitalDao dao = new JdbcHospitalDao();
@@ -54,9 +82,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 			System.out.println(sCheck[i]);
 			result = dao.delete(sCheck[i]);
 		if(result>0)
-			response.sendRedirect("list");
+			out.write("<script>alert('ë³‘ì›ì‚­ì œ ì„±ê³µ!');location.href='list';</script>");	
 		else
-			out.write("<script>alert('ÁË¼ÛÇÕ´Ï´Ù. »èÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.');location.href='../admin/hospital/list';</script>");
+			out.write("<script>alert('ì£„ì†¡í•©ë‹ˆë‹¤. ì‚­ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.');location.href='../admin/hospital/list';</script>");
 		}
 	}
 	}

@@ -25,6 +25,7 @@ public class DetailController extends HttpServlet {
 		// Model
 		NoticeDao dao = new JdbcNoticeDao();
 		Notice n = dao.get(id);
+		dao.getHitsCountup(n.getHit(),id);
 		request.setAttribute("detail", n);
 		request.getRequestDispatcher("/WEB-INF/views/admin/notice/detail.jsp").forward(request, response);
 	}

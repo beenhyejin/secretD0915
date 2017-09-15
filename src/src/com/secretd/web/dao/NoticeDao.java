@@ -2,13 +2,15 @@ package src.com.secretd.web.dao;
 
 import java.util.List;
 
-import src.com.secretd.web.entity.NoticeView;
+import src.com.secretd.web.entity.Notice;
+
 
 public interface NoticeDao {
-	List<NoticeView> getList(int page,String query);
+	List<Notice> getList(int page,String query);
 	int getCount();
-	NoticeView get(String id);
+	Notice get(String id);
 	void edit(String id, String title, String content);
 	void insert(String title, String content);
 	void delete(String id);
+	void getHitsCountup(int hit, String id);
 }

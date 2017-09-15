@@ -21,21 +21,19 @@
 		<img src="../../images/bg-search.png" />
 	</div>
 	<div class="sr-container">
-		<form method="post" enctype="multipart/form-data" class="edit-form">
+		<form method="post" class="edit-form">
 			<table class="list-table">
 				<tr>
 					<th>진료과목</th>
 					<th>병원명</th>
 					<th>주소</th>
 					<th>전화번호</th>
-
-
 				</tr>
 				<tr>
 					<td><input type="text" name="subject"></td>
 					<td class="text-left"><input type="text" name="name"></td>
 					<td><input type="text" name="address"></td>
-					<td><input type="text" name="phone-number"></td>
+					<td><input type="text" name="phone_number"></td>
 				</tr>
 			</table>
 			<div class="btns">

@@ -21,7 +21,7 @@
 		<img src="../../images/bg-search.png" />
 	</div>
 	<div class="sr-container">
-		<form method="post" enctype="multipart/form-data" class="edit-form">
+		<form method="post" class="edit-form">
 			<table class="list-table">
 				<tr>
 					<th>진료과목</th>
@@ -31,8 +31,7 @@
 				</tr>
 				<tr>
 					<td><input type="text" name="subject" value="${detail.subject }"></td>
-					<td class="text-left"><input type="text" name="name"
-						value=${detail.name}></td>
+					<td class="text-left"><input type="text" name="name" value=${detail.name}></td>
 					<td><input type="text" name="address" value="${detail.address}"></td>
 					<td><input type="text" name="phone-number" value="${detail.phone_number}"></td>
 				</tr>

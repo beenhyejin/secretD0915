@@ -27,22 +27,24 @@ public class LoginController extends HttpServlet {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		PrintWriter out = response.getWriter();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		MemberDao memberDao = new JdbcMemberDao();
 		Member member = memberDao.get(id);
 
 		if (member == null) {
 			out.println("<script language='javascript'>");
-			out.println("alert('ÇØ´çµÇ´Â ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.');");
+			out.println("alert('ì‚¬ìš©ì ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.');history.go(-1);");
 			out.println("</script>");
 			out.flush();
-			response.sendRedirect("login?error=1");
-		} else if (!member.getPwd().equals(pwd)) {
+		} else if (!member.getPwd().equals(pwd)) {  
 			out.println("<script language='javascript'>");
-			out.println("alert('ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù. ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.');");
+			out.println("alert('ì‚¬ìš©ì ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.');history.go(-1)");
 			out.println("</script>");
 			out.flush();
-			response.sendRedirect("login?error=2");
+			//response.sendRedirect("login?error=2");
 		} else {
 			request.getSession().setAttribute("id", id);
 			String url = request.getParameter("returnURL");

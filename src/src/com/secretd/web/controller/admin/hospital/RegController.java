@@ -26,7 +26,7 @@ public class RegController extends HttpServlet {
 		id = (String) session.getAttribute("id");
 		if (session.getAttribute("id") == null) {
 			out.write(
-					"<script>alert('·Î±×ÀÎ ÇÊ¿ä');location.href='../../login?returnURL=../admin/hospital/reg';</script>");
+					"<script>alert('ë¡œê·¸ì¸ í•„ìš”');location.href='../../login?returnURL=./admin/hospital/reg';</script>");
 
 		} else
 			request.getRequestDispatcher("/WEB-INF/views/admin/hospital/reg.jsp").forward(request, response);
@@ -34,14 +34,12 @@ public class RegController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/upload";
-
+		/*String path = "/upload";
 		ServletContext context = request.getServletContext();
 		path = context.getRealPath(path);
 		System.out.println("path : " + path);
-		MultipartRequest req = new MultipartRequest(request, path, 1024 * 10124 * 1000, "UTF-8",
-				new DefaultFileRenamePolicy());// lib -> cos.jar
-		request.setCharacterEncoding("UTF-8");
+		MultipartRequest req = new MultipartRequest(request, path, 1024 * 10124 * 1000, "UTF-8",new DefaultFileRenamePolicy());// lib -> cos.jar
+*/		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -49,23 +47,26 @@ public class RegController extends HttpServlet {
 
 		Object _id = session.getAttribute("id");
 		String id = "";
-		String subject = req.getParameter("subject");
-		String name = req.getParameter("name");
-		String address = req.getParameter("address");
-		String phone_number = req.getFilesystemName("phone_number");
+
+		String subject = request.getParameter("subject");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phone_number = request.getParameter("phone_number");
 
 		if (_id != null)
 			id = _id.toString();
-		String fileName = req.getFilesystemName("file");// (String)req.getFileNames().nextElement();
+		//String fileName = request.getFilesystemName("file");// (String)req.getFileNames().nextElement();
 		HospitalDao dao = new JdbcHospitalDao();
 		int result = dao.insert(subject, name, address, phone_number);
-		if (result == 1)
-			response.sendRedirect("list");
+		if (result == 1) {
+			out.write("<script>alert('ë³‘ì›ì¶”ê°€ ì„±ê³µ!');location.href='list';</script>");			
+			//response.sendRedirect("list");
+			out.flush();
+		}
 		else {
-			response.sendRedirect("reg");
-			out.println("<script language='javascript'>");
-			out.println("alert('º´¿øÃß°¡¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù\n ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä!'); history.go(-1);");
-			out.println("</script>");
+			System.out.println("ì‹¤íŒ¨");
+			out.write("<script>alert('ë³‘ì›ì¶”ê°€ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤\n ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”!');history.go(-1);</script>");
+			//response.sendRedirect("reg");
 			out.flush();
 		}
 	}
